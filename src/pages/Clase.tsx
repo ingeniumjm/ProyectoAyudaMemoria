@@ -6,6 +6,8 @@ const Clase = () => {
   const { classId, subtopicId } = useParams();
   const getClassById = useCourseStore((s) => s.getClassById);
 
+
+
   const clase = getClassById(classId ?? "");
   const subtema = clase?.subtopics.find((s) => s.id === subtopicId);
 
@@ -16,6 +18,7 @@ const Clase = () => {
       </Heading>
       {subtema && <Text mt={2}>{subtema.subtopicTitle}</Text>}
     </Box>
+    
   );
 };
 
