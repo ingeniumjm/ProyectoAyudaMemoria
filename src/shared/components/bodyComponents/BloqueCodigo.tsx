@@ -1,32 +1,147 @@
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  Heading,
+  List,
+  ListItem,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import ViewCode from "./ViewCode";
+import type { CodeBlock } from "../../../types";
+import { useCourseStore } from "../../store/useClasesStore";
+import { GoClock, GoFileCode, GoLink, GoVideo } from "react-icons/go";
+import { BiCheck } from "react-icons/bi";
+import { RxVideo } from "react-icons/rx";
 
-const BloqueCodigo = () => {
+const ideaColors = ["#6b46c1", "#1F76F0", "#3DB87C"];
+
+const parseTimestamp = (t: string): number => {
+  const parts = t.split(":").map((n) => parseInt(n, 10));
+  if (parts.some((n) => Number.isNaN(n))) return 0;
+  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  if (parts.length === 2) return parts[0] * 60 + parts[1];
+  return parts[0] ?? 0;
+};
+
+interface BloqueCodigoProps {
+  bloqueCodigo: CodeBlock;
+}
+
+const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
+  const setSeekTimestamp = useCourseStore((s) => s.setSeekTimestamp);
   return (
+          
     <Box p={0}>
-      <p style={{ color: "#6b46c1", padding: 5 }}>
-        <strong>bloque 1 titulo</strong>
-      </p>
-      <ViewCode
-        lenguaje="javascript"
-        codigo={`const mensaje = 'Hola desde ViewCode';
-            console.log(mensaje);`}
-      />
+      <Divider p={5}/>
+      <Text mt={4} mb={4}>
+        <strong>{bloqueCodigo.blockTitle}</strong>
+      </Text>
+      <ViewCode lenguaje={bloqueCodigo.language} codigo={bloqueCodigo.code} />
       <p style={{ padding: 5 }}>
         <strong>¿Qué hace esta parte?</strong>
       </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed accusamus
-        dolorum dolores quae. Alias adipisci eos a reprehenderit ullam molestiae
-        temporibus sint excepturi, necessitatibus suscipit, numquam libero
-        accusamus voluptate omnis?
+      <Text marginBottom={5}>{bloqueCodigo.summary}</Text>
+      <p style={{ padding: 5 }}>
+        <strong>Ideas clave par entender</strong>
       </p>
-      <Flex>
-        <Box>1</Box>
+      <Flex mt={3} gap={4}>
+        {bloqueCodigo.keyIdeas.map((idea, i) => (
+          <Box w="32%" key={i}>
+            <Card>
+              <CardBody>
+                <Heading size="sd">
+                  <Flex align="center" gap={2}>
+                    <BiCheck
+                      size="2em"
+                      color="#ffffff"
+                      style={{
+                        backgroundColor: ideaColors[i % ideaColors.length],
+                        border: "3px solid",
+                        borderRadius: "50px",
+                        padding: "5px",
+                      }}
+                    />
+                    {idea.title}{" "}
+                  </Flex>
+                </Heading>
+
+                <Text pt="0" fontSize="sm">
+                  {idea.description}
+                </Text>
+              </CardBody>
+            </Card>
+          </Box>
+        ))}
+      </Flex>
+      <Flex mt={3}>
+        <Box w="49%">
+          <Card>
+            <CardBody>
+              <Heading size="sd">
+                {" "}
+                <Flex align="center" gap={2}>
+                  {<GoClock size="1em" />}
+                  Ver en la clase (minuto exacto)
+                </Flex>
+              </Heading>
+              <Text pt="0" fontSize="sm">
+                Ir al minuto exacto en el video donde el profesor explica esta
+                sección.
+              </Text>
+
+              <Button
+                mt={2}
+                size="xs"
+                width="200px"
+                border="1px"
+                borderColor="gray.400"
+                onClick={() =>
+                  setSeekTimestamp(parseTimestamp(bloqueCodigo.videoTimestamp))
+                }
+              >
+                <Flex align="center" gap={2}>
+                  <RxVideo />
+                  Ver en el video ---  
+                  {bloqueCodigo.videoTimestamp}                        
+                </Flex>
+                
+              </Button>
+            </CardBody>
+          </Card>
+        </Box>
         <Spacer />
-        <Box>2</Box>
-        <Spacer />
-        <Box>3</Box>
+        <Box w="49%">
+          <Card>
+            <CardBody>
+              <Heading size="sd">
+                <Flex align="center" gap={2}>
+                  {<GoVideo size="1em" />}
+                  Recursos para profundizar
+                </Flex>
+              </Heading>
+              <List spacing={3} mt={4}>
+                {bloqueCodigo.resources.map((recurso, i) => (
+                  <ListItem key={i}>
+                    <Flex align="center" gap={2}>
+                      {recurso.type === "documentacion" && (
+                        <GoFileCode size="1em" />
+                      )}
+                      {recurso.type === "video" && <GoVideo size="1em" />}
+                      {recurso.type !== "documentacion" &&
+                        recurso.type !== "video" && <GoLink size="1em" />}
+                      {recurso.title}
+                    </Flex>
+                  </ListItem>
+                ))}
+              </List>
+            </CardBody>
+          </Card>
+        </Box>
       </Flex>
     </Box>
   );

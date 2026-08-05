@@ -24,7 +24,7 @@ const Sidebar = () => {
             px={3}
           >
             <Text fontSize="sm" flex="1" textAlign="left">
-              <strong>Semana {clase.weekNumber}</strong>
+              <strong>Semana {clase.weekNumber} </strong><br/>{clase.topicTitle}
             </Text>
             <AccordionIcon />
           </AccordionButton>

@@ -8,22 +8,27 @@ export interface Resource {
 
 export type CodeLanguage = 'html' | 'css' | 'javascript' | 'jsx' | 'bash'
 
+export interface KeyIdea {
+  title: string
+  description: string
+}
+
 export interface CodeBlock {
   id: string
+  language: CodeLanguage
   blockTitle: string
   code: string
   summary: string
-  keyIdeas: string[]
+  keyIdeas: KeyIdea[]
   videoTimestamp: string
-  videoUrl: string
   resources: Resource[]
   personalNotes: string
 }
 
 export interface Subtopic {
   id: string
-  language: CodeLanguage
   subtopicTitle: string
+  videoUrl: string
   codeBlocks: CodeBlock[]
 }
 

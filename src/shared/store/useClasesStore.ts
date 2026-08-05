@@ -5,14 +5,20 @@ interface CourseStore {
   classes: CourseClass[];
   loading: boolean;
   error: string | null;
+  seekTimestamp: number | null;
+  playing: boolean;
   fetchClasses: () => Promise<void>;
   getClassById: (id: string) => CourseClass | undefined;
+  setSeekTimestamp: (seconds: number | null) => void;
+  setPlaying: (playing: boolean) => void;
 }
 
 export const useCourseStore = create<CourseStore>((set, get) => ({
   classes: [],
   loading: false,
   error: null,
+  seekTimestamp: null,
+  playing: false,
   fetchClasses: async () => {
     set({ loading: true, error: null });
     try {
@@ -25,4 +31,6 @@ export const useCourseStore = create<CourseStore>((set, get) => ({
     }
   },
   getClassById: (id) => get().classes.find((c) => c.id === id),
+  setSeekTimestamp: (seconds) => set({ seekTimestamp: seconds }),
+  setPlaying: (playing) => set({ playing }),
 }));
