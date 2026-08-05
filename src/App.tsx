@@ -4,11 +4,11 @@ import AppRoutes from './router/AppRoutes'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ChakraProvider>
+    <ChakraProvider>
+      <BrowserRouter>
         <AppRoutes />
-      </ChakraProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ChakraProvider>
   )
 }
 
