@@ -6,9 +6,9 @@ import { MdOutlineFileDownload } from "react-icons/md";
 
 const Clase = () => {
   const { classId, subtopicId } = useParams(); // gancho para traer los valores de la ruta asi poder saber que mostrar
-  const getClassById = useCourseStore((s) => s.getClassById);
+  const classes = useCourseStore((s) => s.classes);
 
-  const clase = getClassById(classId ?? "");
+  const clase = classes.find((c) => c.id === classId);
   const subtema = clase?.subtopics.find((s) => s.id === subtopicId);
   return (
     <Box p={5}>

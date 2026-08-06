@@ -10,7 +10,7 @@ const excalidrawUrl = "https://excalidraw.com/#json=Vn8LaFmvy1ktFn8xwzjn4,V7u_N6
 
 const InfoPanel = () => {
   const { classId, subtopicId } = useParams();
-  const getClassById = useCourseStore((s) => s.getClassById);
+  const classes = useCourseStore((s) => s.classes);
   const seekTimestamp = useCourseStore((s) => s.seekTimestamp);
   const playing = useCourseStore((s) => s.playing);
   const setSeekTimestamp = useCourseStore((s) => s.setSeekTimestamp);
@@ -18,7 +18,7 @@ const InfoPanel = () => {
 
   const playerRef = useRef<HTMLVideoElement>(null);
 
-  const clase = getClassById(classId ?? "");
+  const clase = classes.find((c) => c.id === classId);
   const subtema = clase?.subtopics.find((s) => s.id === subtopicId);
 
   useEffect(() => {

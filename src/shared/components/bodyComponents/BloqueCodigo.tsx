@@ -8,7 +8,7 @@ import {
   Heading,
   List,
   ListItem,
-  Spacer,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import ViewCode from "./ViewCode";
@@ -18,7 +18,7 @@ import { GoClock, GoFileCode, GoLink, GoVideo } from "react-icons/go";
 import { BiCheck } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
 
-const ideaColors = ["#6b46c1", "#1F76F0", "#3DB87C"];
+const coloresIdeas = ["#6b46c1", "#1F76F0", "#3DB87C"];
 
 const parseTimestamp = (t: string): number => {
   const parts = t.split(":").map((n) => parseInt(n, 10));
@@ -49,10 +49,12 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
       <p style={{ padding: 5 }}>
         <strong>Ideas clave par entender</strong>
       </p>
-      <Flex mt={3} gap={4}>
+{/* se cambio flex por una grilla chakra 3 */}
+      <SimpleGrid mt={3} spacing={4} columns={3}> 
         {bloqueCodigo.keyIdeas.map((idea, i) => (
-          <Box w="32%" key={i}>
-            <Card>
+          <Box w="100%" key={i}>
+            {/* se corrige todos los card mismo tamaño de altura */}
+            <Card h="100%">
               <CardBody>
                 <Heading size="sd">
                   <Flex align="center" gap={2}>
@@ -60,13 +62,13 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
                       size="2em"
                       color="#ffffff"
                       style={{
-                        backgroundColor: ideaColors[i % ideaColors.length],
+                        backgroundColor: coloresIdeas[i % coloresIdeas.length],
                         border: "3px solid",
                         borderRadius: "50px",
                         padding: "5px",
                       }}
                     />
-                    {idea.title}{" "}
+                    {idea.title}
                   </Flex>
                 </Heading>
 
@@ -77,10 +79,10 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
             </Card>
           </Box>
         ))}
-      </Flex>
-      <Flex mt={3}>
-        <Box w="49%">
-          <Card>
+      </SimpleGrid>
+      <SimpleGrid mt={3} spacing={4} columns={2}>
+        <Box w="100%">
+          <Card h="100%">
             <CardBody>
               <Heading size="sd">
                 {" "}
@@ -114,9 +116,9 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
             </CardBody>
           </Card>
         </Box>
-        <Spacer />
-        <Box w="49%">
-          <Card>
+        
+        <Box w="100%">
+          <Card h="100%">
             <CardBody>
               <Heading size="sd">
                 <Flex align="center" gap={2}>
@@ -142,7 +144,7 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
             </CardBody>
           </Card>
         </Box>
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 };

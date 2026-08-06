@@ -34,7 +34,7 @@ const Sidebar = () => {
                 <Button
                   key={subtema.id}
                   as={Link}
-                  to={`/clase/${clase.id}/${subtema.id}`}// la ruta para cada clase se compone de su id y el subtema
+                  to={`/${clase.id}/${subtema.id}`}// la ruta para cada clase se compone de su id y el subtema
                   variant="ghost"
                   size="sm"
                   justifyContent="flex-start"

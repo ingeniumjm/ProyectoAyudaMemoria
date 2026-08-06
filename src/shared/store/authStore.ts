@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import usuariosRaw from '../data/usuarios.json'
+import usuariosRaw from '../../data/usuarios.json'
 
 // Tipo del usuario
 interface User {
