@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Input,
   InputGroup,
@@ -7,12 +8,14 @@ import {
   List,
   ListItem,
   Spacer,
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoCodeSlash } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
 import { useCourseStore } from "../../store/useClasesStore";
+import { useAuthStore } from "../../../store/authStore";
 
 const Header = () => {
   const [query, setQuery] = useState("");
@@ -20,6 +23,12 @@ const Header = () => {
   const boxRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const classes = useCourseStore((s) => s.classes);
+  const { user, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   const resultados = query.trim()
     ? classes.flatMap((clase) =>
@@ -126,7 +135,14 @@ const Header = () => {
         )}
       </Box>
       <Spacer />
-      <Box>Usuario/Login</Box>
+      <Flex align="center" gap="3">
+        <Text fontSize="sm" fontWeight="medium">
+          {user?.fullName}
+        </Text>
+        <Button size="sm" colorScheme="purple" onClick={handleLogout}>
+          Cerrar sesión
+        </Button>
+      </Flex>
     </Flex>
   );
 };

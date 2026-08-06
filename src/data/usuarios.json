@@ -1,0 +1,23 @@
+[
+  {
+    "id": "user_001",
+    "email": "admin@cursos.com",
+    "password": "admin123",
+    "role": "admin",
+    "fullName": "Administrador General"
+  },
+  {
+    "id": "user_002",
+    "email": "luis.profesor@cursos.com",
+    "password": "profesor123",
+    "role": "teacher",
+    "fullName": "Luis Ramírez"
+  },
+  {
+    "id": "user_003",
+    "email": "ana.estudiante@cursos.com",
+    "password": "alumna123",
+    "role": "student",
+    "fullName": "Ana García"
+  }
+]
