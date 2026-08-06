@@ -1,28 +1,36 @@
-import { Box, Button, Flex, Spacer, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useCourseStore } from "../shared/store/useClasesStore";
+import BloqueCodigo from "../shared/components/bodyComponents/BloqueCodigo";
 import { MdOutlineFileDownload } from "react-icons/md";
-import ViewCode from "../shared/components/layout/BloqueCodigo";
-import BloqueCodigo from "../shared/components/layout/BloqueCodigo";
 
 const Clase = () => {
+  const { classId, subtopicId } = useParams(); // gancho para traer los valores de la ruta asi poder saber que mostrar
+  const getClassById = useCourseStore((s) => s.getClassById);
+
+  const clase = getClassById(classId ?? "");
+  const subtema = clase?.subtopics.find((s) => s.id === subtopicId);
   return (
-    <Flex direction="column">
-      <Box p={5}>
-        <Flex>
-          <p>titulo de clase</p>
-          <Spacer />
-          <Stack direction="row" spacing={4}>
-            <Button
-              leftIcon={<MdOutlineFileDownload />}
-              colorScheme="purple"
-              variant="solid"
-            >
-              Descargar código de la clase
-            </Button>
-          </Stack>
+    <Box p={5}>
+      <Flex>
+      <Heading as="h1" size="lg" color="#000000">
+        {clase?.topicTitle ?? "Clase"}
+      </Heading>
+           <Spacer />
+      <Button colorScheme="purple" size="sm">
+        <Flex >
+        <MdOutlineFileDownload />
+        Descargar el código de la clase
         </Flex>
-        <BloqueCodigo />
-      </Box>
-    </Flex>
+      </Button>
+
+      </Flex>
+      {subtema && <Text mt={2}>{subtema.subtopicTitle}</Text>}
+      {subtema?.codeBlocks.map((bloque) => (
+         
+        <BloqueCodigo key={bloque.id} bloqueCodigo={bloque}/>
+      ))}
+    </Box>
   );
 };
 

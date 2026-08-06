@@ -8,7 +8,7 @@ const Footer = () => {
       </Box>
       <Spacer />
       <Box>
-        <p>Juan | Alejando | Diego | Jorge | ... </p>
+        <p>Juan | Alejando | Diego | Jorge | Anderson </p>
       </Box>
       <Spacer />
       <Box>TEXTO2</Box>
