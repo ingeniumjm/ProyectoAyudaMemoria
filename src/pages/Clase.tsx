@@ -11,8 +11,8 @@ const Clase = () => {
   const clase = classes.find((c) => c.id === classId);
   const subtema = clase?.subtopics.find((s) => s.id === subtopicId);
   return (
-    <Box p={5}>
-      <Flex>
+    <Box p={{ base: 3, md: 5 }}>
+      <Flex flexWrap="wrap" gap={3}>
       <Heading as="h1" size="lg" color="#000000">
         {clase?.topicTitle ?? "Clase"}
       </Heading>
