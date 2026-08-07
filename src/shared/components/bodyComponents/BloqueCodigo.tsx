@@ -18,7 +18,7 @@ import { useCourseStore } from "../../store/useClasesStore";
 import { GoClock, GoFileCode, GoLink, GoVideo } from "react-icons/go";
 import { BiCheck } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
-import { MdEdit } from "react-icons/md";
+
 import { PopoverFormResumen } from "../Formularios/FormResumen";
 import { PopoverFormIdeas } from "../Formularios/FormIdeas";
 
