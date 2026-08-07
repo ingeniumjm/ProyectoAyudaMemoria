@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  IconButton,
   Input,
   InputGroup,
   InputRightElement,
@@ -13,11 +14,15 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoCodeSlash } from "react-icons/io5";
-import { FiSearch } from "react-icons/fi";
+import { FiMenu, FiSearch } from "react-icons/fi";
 import { useCourseStore } from "../../store/useClasesStore";
 import { useAuthStore } from "../../store/authStore";
 
-const Header = () => {
+interface HeaderProps {
+  onOpenMenu: () => void;
+}
+
+const Header = ({ onOpenMenu }: HeaderProps) => {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -34,9 +39,9 @@ const Header = () => {
     ? classes.flatMap((clase) =>
         clase.subtopics
           .filter((s) =>
-            s.subtopicTitle.toLowerCase().includes(query.trim().toLowerCase())
+            s.subtopicTitle.toLowerCase().includes(query.trim().toLowerCase()),
           )
-          .map((s) => ({ clase, subtema: s }))
+          .map((s) => ({ clase, subtema: s })),
       )
     : [];
 
@@ -51,7 +56,14 @@ const Header = () => {
   }, []);
 
   return (
-    <Flex width="100%" p="4">
+    <Flex width="100%" p="4" flexWrap="wrap" gap={2}>
+      <IconButton
+        aria-label="Abrir menú"
+        icon={<FiMenu />}
+        display={{ base: "inline-flex", lg: "none" }}
+        onClick={onOpenMenu}
+        variant="ghost"
+      />
       <Box>
         <Flex
           gap="5px"
@@ -79,11 +91,9 @@ const Header = () => {
             <p style={{ fontSize: "11px" }}>Curso de Programación</p>
           </Flex>
         </Flex>
-
-        <Flex></Flex>
       </Box>
-      <Spacer />
-      <Box ref={boxRef} position="relative" w="40%">
+      <Spacer display={{ base: "none", md: "block" }} />
+      <Box ref={boxRef} position="relative" w={{ base: "100%", md: "40%" }} order={{ base: 1, md: 0 }}>
         <InputGroup>
           <Input
             type="text"
@@ -134,9 +144,9 @@ const Header = () => {
           </List>
         )}
       </Box>
-      <Spacer />
-      <Flex align="center" gap="3">
-        <Text fontSize="sm" fontWeight="medium">
+      <Spacer display={{ base: "none", md: "block" }} />
+      <Flex align="center" gap="3" order={{ base: 0, md: 0 }}>
+        <Text fontSize="sm" fontWeight="medium" display={{ base: "none", md: "block" }}>
           {user?.fullName}
         </Text>
         <Button size="sm" colorScheme="purple" onClick={handleLogout}>

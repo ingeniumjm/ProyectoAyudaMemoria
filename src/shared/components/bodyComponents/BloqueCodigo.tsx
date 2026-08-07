@@ -50,7 +50,7 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
         <strong>Ideas clave par entender</strong>
       </p>
 {/* se cambio flex por una grilla chakra 3 */}
-      <SimpleGrid mt={3} spacing={4} columns={3}> 
+      <SimpleGrid mt={3} spacing={4} columns={{ base: 1, sm: 2, md: 3 }}>
         {bloqueCodigo.keyIdeas.map((idea, i) => (
           <Box w="100%" key={i}>
             {/* se corrige todos los card mismo tamaño de altura */}
@@ -80,7 +80,7 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
           </Box>
         ))}
       </SimpleGrid>
-      <SimpleGrid mt={3} spacing={4} columns={2}>
+      <SimpleGrid mt={3} spacing={4} columns={{ base: 1, md: 2 }}>
         <Box w="100%">
           <Card h="100%">
             <CardBody>
@@ -99,7 +99,7 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
               <Button
                 mt={2}
                 size="xs"
-                width="200px"
+                w={{ base: "100%", sm: "200px" }}
                 border="1px"
                 borderColor="gray.400"
                 onClick={() =>

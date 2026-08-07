@@ -4,7 +4,15 @@ import Footer from "./Footer";
 import Header from "./Header";
 import InfoPanel from "./InfoPanel";
 import Sidebar from "./Sidebar";
-import { Box, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 //Vamos a crear una columna horizontal
 // dentro haremos tres filas
@@ -20,21 +28,43 @@ const Layout = () => {
     outletRef.current?.scrollTo({ top: 0 });
   }, [location.pathname]);
 
+const {isOpen, onOpen, onClose}=useDisclosure();
+
   return (
-    <Flex direction="column" w="100%" h="100vh" overflow="hidden">
-      <Box w="100%" h="64px" border="1px" borderColor="gray.200">
-        <Header />
+    <Flex direction="column" w="100%" minH="100vh">
+      <Box w="100%" minH="64px" position="relative" zIndex={1} border="1px" borderColor="gray.200">
+        <Header onOpenMenu={onOpen} />
       </Box>
 
-      <Flex flex="1" minH={0}>
-        <Box w="20%" border="1px" borderColor="gray.200" overflowY="auto">
+      <Flex flex="1" direction={{ base: "column", lg: "row" }}>
+        <Box
+          display={{ base: "none", lg: "block" }}
+          w={{ base: "100%", lg: "20%" }}
+          border="1px"
+          borderColor="gray.200"
+          overflowY="auto"
+        >
           <Sidebar />
         </Box>
-        <Box w="60%" bg="gray.50" border="1px" borderColor="gray.200" overflowY="auto" ref={outletRef}>
+        <Box
+          w={{ base: "100%", lg: "60%" }}
+          order={{ base: 2, lg: "0" }}
+          bg="gray.50"
+          border="1px"
+          borderColor="gray.200"
+          overflowY="auto"
+          ref={outletRef}
+        >
           {/* indico donde va cambiar y mostrar la rutas hijas */}
           <Outlet />
         </Box>
-        <Box w="20%" border="1px" borderColor="gray.200" overflowY="auto">
+        <Box
+          w={{ base: "100%", lg: "20%" }}
+          order={{ base: 1, lg: "0" }}
+          border="1px"
+          borderColor="gray.200"
+          overflowY="auto"
+        >
           <InfoPanel />
         </Box>
       </Flex>
@@ -42,6 +72,15 @@ const Layout = () => {
       <Box w="100%" h="auto" border="1px" borderColor="gray.200">
         <Footer />
       </Box>
+
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerBody p={0}>
+            <Sidebar onNavigate={onClose} />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Flex>
   );
 };
