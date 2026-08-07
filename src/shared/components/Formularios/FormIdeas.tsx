@@ -32,7 +32,7 @@ const Form = ({ firstFieldRef, onCancel}:FormProps) => {
         <Input ref={firstFieldRef} type="text" />
                 <FormLabel>Idea Clave 3</FormLabel>
         <Input ref={firstFieldRef} type="text" />
-        <FormHelperText>¡Dilo en tus palabras!</FormHelperText>
+        <FormHelperText>¡Dilo en tus propias palabras!</FormHelperText>
 
       </FormControl>
 

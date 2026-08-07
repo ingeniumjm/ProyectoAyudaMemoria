@@ -28,7 +28,7 @@ const Form = ({ firstFieldRef, onCancel}:FormProps) => {
       <FormControl>
         <FormLabel>¿Qué hace esta parte?</FormLabel>
         <Input ref={firstFieldRef} type="text" />
-        <FormHelperText>¡Dilo en tus palabras!</FormHelperText>
+        <FormHelperText>¡Dilo en tus propias palabras!</FormHelperText>
       </FormControl>
       <ButtonGroup display="flex" justifyContent="flex-end">
         <Button variant="outline" onClick={onCancel}>
