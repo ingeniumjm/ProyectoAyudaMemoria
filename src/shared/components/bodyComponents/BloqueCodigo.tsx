@@ -9,6 +9,7 @@ import {
   List,
   ListItem,
   SimpleGrid,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
 import ViewCode from "./ViewCode";
@@ -17,6 +18,9 @@ import { useCourseStore } from "../../store/useClasesStore";
 import { GoClock, GoFileCode, GoLink, GoVideo } from "react-icons/go";
 import { BiCheck } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
+
+import { PopoverFormResumen } from "../Formularios/FormResumen";
+import { PopoverFormIdeas } from "../Formularios/FormIdeas";
 
 const coloresIdeas = ["#6b46c1", "#1F76F0", "#3DB87C"];
 
@@ -35,21 +39,53 @@ interface BloqueCodigoProps {
 const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
   const setSeekTimestamp = useCourseStore((s) => s.setSeekTimestamp);
   return (
-          
     <Box p={0}>
-      <Divider p={5}/>
+      <Divider p={5} />
       <Text mt={4} mb={4}>
         <strong>{bloqueCodigo.blockTitle}</strong>
       </Text>
       <ViewCode lenguaje={bloqueCodigo.language} codigo={bloqueCodigo.code} />
-      <p style={{ padding: 5 }}>
-        <strong>¿Qué hace esta parte?</strong>
-      </p>
+
+      <Flex flexWrap="wrap" gap={3} mt={5}>
+        <p style={{ padding: 5 }}>
+          <strong>¿Qué hace esta parte?</strong>
+          <Spacer />
+        </p>
+        <Spacer />
+        {/* <Button
+          size="xs"
+          variant="solid"
+          colorScheme="blue"
+          color="gray.300"
+          _hover={{ bg: "#6b46c1" }}
+          leftIcon={<MdEdit />}
+        >
+          Editar
+        </Button> */}
+        <PopoverFormResumen/>
+      </Flex>
+      <Flex flexWrap="wrap" gap={3} mt={5}>
       <Text marginBottom={5}>{bloqueCodigo.summary}</Text>
       <p style={{ padding: 5 }}>
         <strong>Ideas clave par entender</strong>
       </p>
-{/* se cambio flex por una grilla chakra 3 */}
+<Spacer/>
+ <PopoverFormIdeas/>
+        {/* <Button
+          size="xs"
+          variant="solid"
+          colorScheme="blue"
+          color="gray.300"
+          _hover={{ bg: "#6b46c1" }}
+          leftIcon={<MdEdit />}
+        >
+          Editar
+        </Button> */}
+</Flex>
+
+
+
+      {/* se cambio flex por una grilla chakra 3 */}
       <SimpleGrid mt={3} spacing={4} columns={{ base: 1, sm: 2, md: 3 }}>
         {bloqueCodigo.keyIdeas.map((idea, i) => (
           <Box w="100%" key={i}>
@@ -108,15 +144,14 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
               >
                 <Flex align="center" gap={2}>
                   <RxVideo />
-                  Ver en el video ---  
-                  {bloqueCodigo.videoTimestamp}                        
+                  Ver en el video ---
+                  {bloqueCodigo.videoTimestamp}
                 </Flex>
-                
               </Button>
             </CardBody>
           </Card>
         </Box>
-        
+
         <Box w="100%">
           <Card h="100%">
             <CardBody>
