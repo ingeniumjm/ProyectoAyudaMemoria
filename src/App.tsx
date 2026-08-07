@@ -1,23 +1,28 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { useEffect } from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import AppRoutes from './router/AppRoutes'
-import { useCourseStore } from './shared/store/useClasesStore'
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./router/AppRoutes";
+import { useCourseStore } from "./shared/store/useClasesStore";
+import theme from "./theme";
 
 const App = () => {
-  const fetchClasses = useCourseStore((s) => s.fetchClasses)
+  const fetchClasses = useCourseStore((s) => s.fetchClasses);
 
   useEffect(() => {
-    fetchClasses()
-  }, [fetchClasses])
+    fetchClasses();
+  }, [fetchClasses]);
 
   return (
-    <BrowserRouter>
-      <ChakraProvider>
-        <AppRoutes />
-      </ChakraProvider>
-    </BrowserRouter>
-  )
-}
+    <>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
-export default App
+      <BrowserRouter>
+        <ChakraProvider theme={theme}>
+          <AppRoutes />
+        </ChakraProvider>
+      </BrowserRouter>
+    </>
+  );
+};
+
+export default App;
