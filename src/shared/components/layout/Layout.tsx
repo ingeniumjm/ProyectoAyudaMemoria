@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import InfoPanel from "./InfoPanel";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar2";
 import {
   Box,
   Flex,
