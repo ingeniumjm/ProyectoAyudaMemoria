@@ -44,7 +44,7 @@ const Form = ({ firstFieldRef, onCancel}:FormProps) => {
 
 export const PopoverFormResumen = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = useRef<HTMLImageElement |null>(null);
+  const firstFieldRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <>
