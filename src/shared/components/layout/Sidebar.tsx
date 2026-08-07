@@ -1,15 +1,22 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Button,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import { useMatch } from "react-router-dom";
 import { useCourseStore } from "../../store/useClasesStore";
+import GrupoSemanas from "./GrupoSemanas";
+import type { GrupoCertificado } from "./GrupoSemanas";
+import type { CourseClass } from "../../../types";
+
+const agruparPorCertificado = (classes: CourseClass[]): GrupoCertificado[] => {
+  const grupos: GrupoCertificado[] = [];
+  classes.forEach((clase) => {
+    const grupo = grupos.find((g) => g.certificate === clase.certificate);
+    if (grupo) {
+      grupo.clases.push(clase);
+    } else {
+      grupos.push({ certificate: clase.certificate, clases: [clase] });
+    }
+  });
+  return grupos;
+};
 
 interface SidebarProps {
   onNavigate?: () => void;
@@ -17,43 +24,21 @@ interface SidebarProps {
 
 const Sidebar = ({ onNavigate }: SidebarProps) => {
   const classes = useCourseStore((s) => s.classes);
+  const match = useMatch("/:classId/:subtopicId");
+  const grupos = agruparPorCertificado(classes);
 
   return (
-    <Accordion allowMultiple p={2}>
-      {classes.map((clase) => (
-        <AccordionItem key={clase.id} border="none">
-          <AccordionButton
-            _hover={{ bg: "#6b46c1", color: "white" }}
-            borderRadius="md"
-            px={3}
-          >
-            <Text fontSize="sm" flex="1" textAlign="left">
-              <strong>Semana {clase.weekNumber} </strong><br/>{clase.topicTitle}
-            </Text>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel p={0}>
-            <Stack spacing={1} pl={3} pt={1}>
-              {clase.subtopics.map((subtema) => (
-                <Button
-                  key={subtema.id}
-                  as={Link}
-                  to={`/${clase.id}/${subtema.id}`}// la ruta para cada clase se compone de su id y el subtema
-                  variant="ghost"
-                  size="sm"
-                  justifyContent="flex-start"
-                  w="100%"
-                  onClick={onNavigate}
-                  _hover={{ bg: "#6b46c1", color: "white" }}
-                >
-                  <Text fontSize="xs">{subtema.subtopicTitle}</Text>
-                </Button>
-              ))}
-            </Stack>
-          </AccordionPanel>
-        </AccordionItem>
+    <Box as="nav" aria-label="Clases del curso" p={2}>
+      {grupos.map((grupo) => (
+        <GrupoSemanas
+          key={grupo.certificate}
+          grupo={grupo}
+          classIdActivo={match?.params.classId}
+          subtopicIdActivo={match?.params.subtopicId}
+          onNavigate={onNavigate}
+        />
       ))}
-    </Accordion>
+    </Box>
   );
 };
 
