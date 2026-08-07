@@ -29,6 +29,7 @@ const Layout = () => {
   }, [location.pathname]);
 
 const {isOpen, onOpen, onClose}=useDisclosure();
+const rutaHome=location.pathname==="/"    // devuelve si esta home
 
   return (
     <Flex direction="column" w="100%" minH="100vh">
@@ -64,8 +65,9 @@ const {isOpen, onOpen, onClose}=useDisclosure();
           border="1px"
           borderColor="gray.200"
           overflowY="auto"
+          display={{base: rutaHome?"none": "block", lg:"block"}}
         >
-          <InfoPanel />
+          <InfoPanel/>
         </Box>
       </Flex>
 
