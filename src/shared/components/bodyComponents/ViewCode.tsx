@@ -59,6 +59,7 @@ const ViewCode = ({ lenguaje, codigo }: ViewCodeProps) => {
         language={languageMap[lenguaje]}
         style={oneDark}
         showLineNumbers
+        wrapLongLines
         customStyle={{
           margin: 0,
           borderRadius: 0,

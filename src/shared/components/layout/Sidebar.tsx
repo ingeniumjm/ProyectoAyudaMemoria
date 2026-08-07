@@ -11,7 +11,11 @@ import {
 import { Link } from "react-router-dom";
 import { useCourseStore } from "../../store/useClasesStore";
 
-const Sidebar = () => {
+interface SidebarProps {
+  onNavigate?: () => void;
+}
+
+const Sidebar = ({ onNavigate }: SidebarProps) => {
   const classes = useCourseStore((s) => s.classes);
 
   return (
@@ -39,6 +43,7 @@ const Sidebar = () => {
                   size="sm"
                   justifyContent="flex-start"
                   w="100%"
+                  onClick={onNavigate}
                   _hover={{ bg: "#6b46c1", color: "white" }}
                 >
                   <Text fontSize="xs">{subtema.subtopicTitle}</Text>
