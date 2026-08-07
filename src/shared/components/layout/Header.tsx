@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { IoCodeSlash } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
 import { useCourseStore } from "../../store/useClasesStore";
-import { useAuthStore } from "../../../store/authStore";
+import { useAuthStore } from "../../store/authStore";
 
 const Header = () => {
   const [query, setQuery] = useState("");
@@ -61,7 +61,7 @@ const Header = () => {
         >
           <div
             style={{
-              backgroundColor: "#6B46C1", // Color morado
+              backgroundColor: "#6B46C1",
               height: "32px",
               width: "32px",
               display: "inline-flex",
@@ -123,7 +123,7 @@ const Header = () => {
                 cursor="pointer"
                 _hover={{ bg: "purple.50" }}
                 onClick={() => {
-                  navigate(`/clase/${clase.id}/${subtema.id}`);
+                  navigate(`/${clase.id}/${subtema.id}`);
                   setQuery("");
                   setOpen(false);
                 }}

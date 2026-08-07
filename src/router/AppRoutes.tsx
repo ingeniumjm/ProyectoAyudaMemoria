@@ -12,19 +12,21 @@ const AppRoutes = () => {
     <Routes>
       {/*Ruta pública del login a pantalla completa */}
       <Route path="/login" element={<LoginPage />} />
-      {/*La ruta Padre el de Layout */}
+
+      {/*La ruta Padre princial es la de Layout */}
       <Route element={<Layout />}>
         {/* path es la ruta - element para quien es la ruta */}
         <Route
           path="/"
           element={
+            
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/clase/:classId/:subtopicId"
+          path="/:classId/:subtopicId"
           element={
             <ProtectedRoute>
               <Clase />

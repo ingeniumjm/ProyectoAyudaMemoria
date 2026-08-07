@@ -26,6 +26,8 @@ Este proyecto fue construido utilizando el siguiente ecosistema de herramientas:
 - Chakra UI: Componentes para la parte visual
 - React Icons: Colección de íconos populares
 - Zustand: Creacion de Store para poder usar los datos de los json en los componentes
+- React-Player: reproductor de video
+- React-syntax-highlighter: visualizador de codigo
 
 ## Instalación y Configuración
 

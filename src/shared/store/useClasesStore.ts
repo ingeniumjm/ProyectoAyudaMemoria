@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { CourseClass } from "../../types";
+import { fetchClasesCurso } from "../../services/fetchClasesCurso";
 
 interface CourseStore {
   classes: CourseClass[];
@@ -19,16 +20,16 @@ export const useCourseStore = create<CourseStore>((set, get) => ({
   error: null,
   seekTimestamp: null,
   playing: false,
-  fetchClasses: async () => {
-    set({ loading: true, error: null });
-    try {
-      const res = await fetch("/datos.json");
-      if (!res.ok) throw new Error("Error al cargar datos: " + res.status);
-      const data = (await res.json()) as { classes: CourseClass[] };
-      set({ classes: data.classes, loading: false });
-    } catch (error) {
-      set({ error: (error as Error).message, loading: false });
-    }
+  fetchClasses: async ()=>{
+set({loading:true,error:null});
+const clase=await fetchClasesCurso();
+if(clase){
+set({classes:clase, loading:false})
+
+}
+else{
+set({error: "Error al cargar los datos", loading:false});
+}
   },
   getClassById: (id) => get().classes.find((c) => c.id === id),
   setSeekTimestamp: (seconds) => set({ seekTimestamp: seconds }),
