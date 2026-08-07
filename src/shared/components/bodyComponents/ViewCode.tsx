@@ -6,7 +6,7 @@ import javascript from "react-syntax-highlighter/dist/esm/languages/prism/javasc
 import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import markup from "react-syntax-highlighter/dist/esm/languages/prism/markup";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { MdCheck, MdContentCopy } from "react-icons/md";
+import { MdCheck, MdContentCopy, MdEdit } from "react-icons/md";
 import type { CodeLanguage } from "../../../types";
 
 SyntaxHighlighter.registerLanguage("markup", markup);
@@ -33,27 +33,33 @@ const ViewCode = ({ lenguaje, codigo }: ViewCodeProps) => {
 
   return (
     <Box position="relative" borderRadius="md" overflow="hidden">
-      <Flex
-        align="center"
-        justify="space-between"
-        bg="gray.800"
-        px={3}
-        py={2}
-      >
+      <Flex align="center" justify="space-between" bg="gray.800" px={3} py={2}>
         <Badge colorScheme="purple" variant="subtle">
           {lenguaje}
         </Badge>
-        <Button
-          size="xs"
-          variant="ghost"
-          colorScheme="gray"
-          color="gray.300"
-          _hover={{ bg: "#6b46c1" }}
-          leftIcon={hasCopied ? <MdCheck /> : <MdContentCopy />}
-          onClick={onCopy}
-        >
-          {hasCopied ? "Copiado" : "Copiar"}
-        </Button>
+        <Flex>
+          <Button
+            size="xs"
+            variant="ghost"
+            colorScheme="gray"
+            color="gray.300"
+            _hover={{ bg: "#6b46c1" }}
+            leftIcon={hasCopied ? <MdCheck /> : <MdContentCopy />}
+            onClick={onCopy}
+          >
+            {hasCopied ? "Copiado" : "Copiar"}
+          </Button>
+          <Button
+            size="xs"
+            variant="ghost"
+            colorScheme="gray"
+            color="gray.300"
+            _hover={{ bg: "#6b46c1" }}
+            leftIcon={<MdEdit />}
+          >
+            Editar
+          </Button>
+        </Flex>
       </Flex>
       <SyntaxHighlighter
         language={languageMap[lenguaje]}
@@ -69,7 +75,7 @@ const ViewCode = ({ lenguaje, codigo }: ViewCodeProps) => {
         lineNumberStyle={{ color: "#4b5563", minWidth: "2.5em" }}
       >
         {codigo}
-    </SyntaxHighlighter>
+      </SyntaxHighlighter>
     </Box>
   );
 };
