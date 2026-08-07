@@ -62,15 +62,16 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
         >
           Editar
         </Button> */}
-        <PopoverFormResumen/>
+        <PopoverFormResumen />
       </Flex>
+              <Text marginBottom={5}>{bloqueCodigo.summary}</Text>
       <Flex flexWrap="wrap" gap={3} mt={5}>
-      <Text marginBottom={5}>{bloqueCodigo.summary}</Text>
-      <p style={{ padding: 5 }}>
-        <strong>Ideas clave par entender</strong>
-      </p>
-<Spacer/>
- <PopoverFormIdeas/>
+
+        <p style={{ padding: 5 }}>
+          <strong>Ideas clave para entender</strong>
+        </p>
+        <Spacer />
+        <PopoverFormIdeas />
         {/* <Button
           size="xs"
           variant="solid"
@@ -81,9 +82,7 @@ const BloqueCodigo = ({ bloqueCodigo }: BloqueCodigoProps) => {
         >
           Editar
         </Button> */}
-</Flex>
-
-
+      </Flex>
 
       {/* se cambio flex por una grilla chakra 3 */}
       <SimpleGrid mt={3} spacing={4} columns={{ base: 1, sm: 2, md: 3 }}>
