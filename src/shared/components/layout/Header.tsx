@@ -61,7 +61,7 @@ const Header = () => {
         >
           <div
             style={{
-              backgroundColor: "#6B46C1", // Color morado
+              backgroundColor: "#6B46C1",
               height: "32px",
               width: "32px",
               display: "inline-flex",

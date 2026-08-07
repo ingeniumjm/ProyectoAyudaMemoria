@@ -19,7 +19,8 @@ const AppRoutes = () => {
         <Route
           path="/"
           element={
-            <ProtectedRoute>//componente qeue va a camibiar entre /login o home
+            
+            <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
